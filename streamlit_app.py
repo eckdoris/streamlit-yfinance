@@ -37,3 +37,15 @@ else:
     df = dividends.reset_index()
     df.columns = ["Datum", "Dividende"]
     st.dataframe(df)
+# === Kursdaten laden ===
+data = ticker.history(period="1y")
+
+# === Chart anzeigen ===
+st.line_chart(data["Close"])
+
+# === Dividenden anzeigen ===
+if "Dividends" in data.columns:
+    st.subheader("📈 Ausgeschüttete Dividenden")
+    st.bar_chart(data["Dividends"])
+else:
+    st.write("Keine Dividenden-Daten verfügbar.")
